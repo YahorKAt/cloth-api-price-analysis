@@ -1,0 +1,4180 @@
+{
+	"info": {
+		"_postman_id": "cfe851ac-6b33-485c-a9af-4ab6359124aa",
+		"name": "ClothAPI",
+		"description": "# ClothAPI Documentation\nClothAPI — это фейковый (имитирующий работу) API, предназначенный для обучения и создания учебных проектов. API представляет собой магазин одежды и включает функционал аутентификации, работы с пользователями, брендами, категориями и продуктами.\n\n## Начало работы\nДля начала работы, необходимо создать переменную окружения `url` со значением https://clothapi.progskill.ru, эта переменная используется в построении правльного URL.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "42225204",
+		"_collection_link": "https://progskill-fapi.postman.co/workspace/Team-Workspace~b75c93ed-c81c-4802-8553-7d98dfdca03f/collection/42225204-cfe851ac-6b33-485c-a9af-4ab6359124aa?action=share&source=collection_link&creator=42225204"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"    const response = pm.response.json();",
+									"    pm.environment.set(\"access_token\", response.access_token.value);",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"login\": \"admin\",\n  \"password\": \"admin\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url}}/v1/auth/login",
+						"description": "### Вход (Login)\n\nАутентификация пользователя. Возвращает `access_token` и `refresh_token` в cookie.\n\n#### Тело запроса\n\n- `login` (string, required): Логин.\n    \n- `password` (string, required): Пароль.\n    \n\n**Комбинации**:\n\n- `user/user` — пользователь.\n    \n- `moderator/moderator` — модератор.\n    \n- `admin/admin` — администратор.\n    \n\n#### Разрешения\n\nРоль **moderator** имеет следующие разрешения:\n\n- GET_ALL_USERS - получение списка пользователей.\n    \n- GET_USER_BY_ID - Получение пользователя по ID.\n    \n- CREATE_BRAND - Создание бренда.\n    \n- CHANGE_BRAND - Изменение бренда.\n    \n- CREATE_CATEGORY - Создание категории.\n    \n- CHANGE_CATEGORY - Изменение категории.\n    \n- CREATE_PRODUCT - Создание продукта.\n    \n- CHANGE_PRODUCT - Изменение продукта.\n    \n- ADD_PRODUCT_IMAGE - Добавление изображения продукту.\n    \n\nРоль **admin** имеет следующие разрешения:\n\n- GET_ALL_USERS - получение списка пользователей.\n    \n- GET_USER_BY_ID - Получение пользователя по ID.\n    \n- CHANGE_USER_NAME - Изменение имени пользователя.\n    \n- CREATE_BRAND - Создание бренда.\n    \n- CHANGE_BRAND - Изменение бренда.\n    \n- DELETE_BRAND - Удаление бренда.\n    \n- CREATE_CATEGORY - Создание категории.\n    \n- CHANGE_CATEGORY - Изменение категории.\n    \n- DELETE_CATEGORY - Удаление категории.\n    \n- CREATE_PRODUCT - Создание продукта.\n    \n- CHANGE_PRODUCT - Изменение продукта.\n    \n- DELETE_PRODUCT - Удаление продукта.\n    \n- ADD_PRODUCT_IMAGE - Добавление изображения продукту."
+					},
+					"response": [
+						{
+							"name": "Success - 200 OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"login\": \"admin\",\n  \"password\": \"admin\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{url}}/v1/auth/login"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.4"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 12 Mar 2025 13:36:57 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "515"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Set-Cookie",
+									"value": "refresh_token=wvKtZtbIqykzqd7eimiGFj8dD01XszgQPhPjEMq3fBKv33AiFmlz2RxWKD01OCxB; Path=/v1; Expires=Thu, 12 Mar 2026 13:36:57 GMT; HttpOnly; Secure; SameSite=Strict"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "01958a92-9772-709f-bb3d-57a4e6ba3cd2"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"access_token\": {\n        \"value\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDE3ODg0MTcsImlhdCI6MTc0MTc4NjYxNywicm9sZSI6IkFETUlOIiwic3ViIjoiYjVhYmZjZDEtM2MwMy00ZTA2LWEyZGEtZGU1ZTkxMDkyMmQyIn0.IexH-yQoX7dKEGqlmGEvqZHOivwlQC6Ko0fBGjlllZ4\",\n        \"expiration\": \"2025-03-12T14:06:57.714375373Z\"\n    },\n    \"user\": {\n        \"id\": \"b5abfcd1-3c03-4e06-a2da-de5e910922d2\",\n        \"login\": \"admin\",\n        \"first_name\": \"Паша\",\n        \"last_name\": \"Пашечкин\",\n        \"role\": \"ADMIN\",\n        \"updated_at\": \"2023-06-10T14:47:52.959828577Z\",\n        \"created_at\": \"2020-04-07T14:47:52.959828753Z\"\n    }\n}"
+						},
+						{
+							"name": "Error - 400 Bad Request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"login\": \"admin\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{url}}/v1/auth/login"
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.4"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 12 Mar 2025 14:20:47 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "194"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "01958aba-b9cb-7161-87ed-bf2a4d8720b9"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Validation not passed\",\n    \"code\": \"VALIDATION_FAILED\",\n    \"datetime\": \"2025-03-12T14:20:47.94723774Z\",\n    \"details\": [\n        {\n            \"key\": \"password\",\n            \"message\": \"cannot be blank\",\n            \"code\": \"validation_required\"\n        }\n    ]\n}"
+						},
+						{
+							"name": "Error - 401 Unauthorized",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"login\": \"unknown\",\n  \"password\": \"unknown\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{url}}/v1/auth/login"
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.4"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 12 Mar 2025 14:18:51 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "113"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "01958ab8-f244-7f1c-98f4-0a252913c9a8"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"incorrect login or password\",\n    \"code\": \"WRONG_CREDENTIALS\",\n    \"datetime\": \"2025-03-12T14:11:23.520989369Z\"\n}"
+						}
+					]
+				},
+				{
+					"name": "logout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": "{{url}}/v1/auth/logout",
+						"description": "### Выход (Logout)\nЗавершает сессию, устанавливая просроченный `refresh_token`."
+					},
+					"response": [
+						{
+							"name": "Success - 200 OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": "{{url}}/v1/auth/logout"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "accessToken",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"  const response = pm.response.json();",
+									"  pm.environment.set(\"access_token\", response.value);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{url}}/v1/auth/access-token",
+						"description": "### Получение Access Token\nВозвращает новый `access_token`, если есть валидный `refresh_token` в cookie.\nЕсли `refresh_token` невалиден, либо не предоставлен, получим ошибку."
+					},
+					"response": [
+						{
+							"name": "Success - 200 OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{url}}/v1/auth/access-token"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.4"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 12 Mar 2025 13:37:59 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "267"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "01958a93-89be-7115-8e39-00eb793616d3"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"value\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NDE3ODg0NzksImlhdCI6MTc0MTc4NjY3OSwicm9sZSI6IkFETUlOIiwic3ViIjoiYjVhYmZjZDEtM2MwMy00ZTA2LWEyZGEtZGU1ZTkxMDkyMmQyIn0.AyOwKgYPhBAmQ1oY9mxQrceES3i1N-1AMc6akg9PQig\",\n    \"expiration\": \"2025-03-12T14:07:59.742266413Z\"\n}"
+						}
+					]
+				}
+			],
+			"description": "## Аутентификация\nРаздел для входа, выхода и получения access-токена."
+		},
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "users",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/v1/users?page=1&per_page=10",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"users"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"description": "Номер страницы."
+								},
+								{
+									"key": "per_page",
+									"value": "10",
+									"description": "Записей на странице (10 или 20)."
+								},
+								{
+									"key": "login",
+									"value": "us",
+									"description": "Часть логина.",
+									"disabled": true
+								},
+								{
+									"key": "first_name",
+									"value": "ва",
+									"description": "Часть имени.",
+									"disabled": true
+								},
+								{
+									"key": "last_name",
+									"value": "ва",
+									"description": "Часть фамилии.",
+									"disabled": true
+								},
+								{
+									"key": "role",
+									"value": "USER",
+									"description": "Роль, возможные варианты: USER, MODERATOR, ADMIN.",
+									"disabled": true
+								},
+								{
+									"key": "order_by",
+									"value": "updated_at_asc",
+									"description": "Сортировка. Можно выбрать только одно поле для сортировки. Может быть одним из следующих значений:\nfirst_name_asc - имени по возрастанию\nfirst_name_desc - имени по убыванию\nlast_name_asc - фамилии возрастанию\nlast_name_desc - фамилии убыванию\nupdated_at_asc - дате обновления по возрастанию\nupdated_at_desc - дате обновления по убыванию\ncreated_at_asc - дате создания по возрастанию\ncreated_at_desc - дате создания по убыванию",
+									"disabled": true
+								}
+							]
+						},
+						"description": "### Список пользователей\nВозвращает список пользователей с пагинацией."
+					},
+					"response": [
+						{
+							"name": "Success - 200 OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/v1/users?page=1&per_page=10",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"users"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "per_page",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.4"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 12 Mar 2025 13:38:24 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "759"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "01958a93-eb51-7b05-93ef-1ab91511dccc"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": [\n        {\n            \"id\": \"c0d68894-fcb3-4c47-8778-82ca98dcb338\",\n            \"login\": \"user\",\n            \"first_name\": \"Вася\",\n            \"last_name\": \"Васечкин\",\n            \"role\": \"USER\",\n            \"updated_at\": \"2024-11-30T14:47:52.959827768Z\",\n            \"created_at\": \"2024-09-23T14:47:52.959827997Z\"\n        },\n        {\n            \"id\": \"51b41e17-3b1d-4391-8ab8-804880186386\",\n            \"login\": \"moderator\",\n            \"first_name\": \"Петя\",\n            \"last_name\": \"Петечкин\",\n            \"role\": \"MODERATOR\",\n            \"updated_at\": \"2024-12-14T14:47:52.9598282Z\",\n            \"created_at\": \"2024-05-21T14:47:52.959828388Z\"\n        },\n        {\n            \"id\": \"b5abfcd1-3c03-4e06-a2da-de5e910922d2\",\n            \"login\": \"admin\",\n            \"first_name\": \"Паша\",\n            \"last_name\": \"Пашечкин\",\n            \"role\": \"ADMIN\",\n            \"updated_at\": \"2023-06-10T14:47:52.959828577Z\",\n            \"created_at\": \"2020-04-07T14:47:52.959828753Z\"\n        }\n    ],\n    \"page\": 1,\n    \"per_page\": 10,\n    \"total_pages\": 1,\n    \"total_count\": 3,\n    \"has_next\": false\n}"
+						},
+						{
+							"name": "Error - 400 Bad Request",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"login\": \"admin\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/v1/users?page=1&per_page=50",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"users"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "per_page",
+											"value": "50",
+											"description": "Ошибка. Возможные значения - 10 или 20."
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.4"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 12 Mar 2025 14:28:08 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "203"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "01958ac1-7473-7ea0-9b8b-e92100844920"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Validation not passed\",\n    \"code\": \"VALIDATION_FAILED\",\n    \"datetime\": \"2025-03-12T14:28:08.948067719Z\",\n    \"details\": [\n        {\n            \"key\": \"per_page\",\n            \"message\": \"must be a valid value\",\n            \"code\": \"validation_in_invalid\"\n        }\n    ]\n}"
+						},
+						{
+							"name": "Error - 403 Forbidden",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/v1/users?page=1&per_page=10",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"users"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1",
+											"description": "Номер страницы."
+										},
+										{
+											"key": "per_page",
+											"value": "10",
+											"description": "Записей на странице (10 или 20)."
+										}
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.4"
+								},
+								{
+									"key": "Date",
+									"value": "Mon, 11 Aug 2025 13:55:30 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "121"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "0198996a-30d1-7899-85cd-552a7d7a9026"
+								},
+								{
+									"key": "Access-Control-Allow-Methods",
+									"value": "GET, POST, PUT, PATCH, DELETE"
+								},
+								{
+									"key": "Access-Control-Allow-Headers",
+									"value": "Content-Type, Authorization"
+								},
+								{
+									"key": "Access-Control-Allow-Credentials",
+									"value": "true"
+								},
+								{
+									"key": "Access-Control-Max-Age",
+									"value": "300"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Access denied\",\n    \"code\": \"ACCESS_DENIED\",\n    \"datetime\": \"2025-08-11T13:55:30.129736591Z\",\n    \"details\": \"GET_ALL_USERS\"\n}"
+						}
+					]
+				},
+				{
+					"name": "me",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{url}}/v1/users/me",
+						"description": "### Информация о текущем пользователе"
+					},
+					"response": [
+						{
+							"name": "Success - 200 OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{url}}/v1/users/me"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.4"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 12 Mar 2025 13:38:52 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "224"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "01958a94-5981-7c33-880c-01e6316826b1"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"b5abfcd1-3c03-4e06-a2da-de5e910922d2\",\n    \"login\": \"admin\",\n    \"first_name\": \"Паша\",\n    \"last_name\": \"Пашечкин\",\n    \"role\": \"ADMIN\",\n    \"updated_at\": \"2023-06-10T14:47:52.959828577Z\",\n    \"created_at\": \"2020-04-07T14:47:52.959828753Z\"\n}"
+						}
+					]
+				},
+				{
+					"name": "byID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{url}}/v1/users/b5abfcd1-3c03-4e06-a2da-de5e910922d2",
+						"description": "### Получение пользователя по ID"
+					},
+					"response": [
+						{
+							"name": "Success - 200 OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{url}}/v1/users/b5abfcd1-3c03-4e06-a2da-de5e910922d2"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.4"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 12 Mar 2025 13:39:05 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "224"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "01958a94-8aec-757e-bac5-6760efbf04f9"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"b5abfcd1-3c03-4e06-a2da-de5e910922d2\",\n    \"login\": \"admin\",\n    \"first_name\": \"Паша\",\n    \"last_name\": \"Пашечкин\",\n    \"role\": \"ADMIN\",\n    \"updated_at\": \"2023-06-10T14:47:52.959828577Z\",\n    \"created_at\": \"2020-04-07T14:47:52.959828753Z\"\n}"
+						},
+						{
+							"name": "Error - 404 Not Found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{url}}/v1/users/00000000-3c03-4e06-a2da-de5e910922d2"
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.4"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 12 Mar 2025 13:46:28 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "97"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "01958a9b-4c37-7427-98a3-8e1867371864"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"user not found\",\n    \"code\": \"USER_NOT_FOUND\",\n    \"datetime\": \"2025-03-11T14:47:52.962195529Z\"\n}"
+						},
+						{
+							"name": "Error - 400 Bad Request",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{url}}/v1/users/give-me-all"
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.4"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 12 Mar 2025 13:46:28 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "97"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "01958a9b-4c37-7427-98a3-8e1867371864"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"user not found\",\n    \"code\": \"USER_NOT_FOUND\",\n    \"datetime\": \"2025-03-11T14:47:52.962195529Z\"\n}"
+						},
+						{
+							"name": "Error - 403 Forbidden",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{url}}/v1/users/b5abfcd1-3c03-4e06-a2da-de5e910922d2"
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.4"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 13 Mar 2025 13:36:53 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "122"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "01958fb8-e2c7-758e-b7a0-fb7e60312430"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Access denied\",\n    \"code\": \"ACCESS_DENIED\",\n    \"datetime\": \"2025-03-13T13:36:53.447522322Z\",\n    \"details\": \"GET_USER_BY_ID\"\n}"
+						}
+					]
+				},
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"login\": \"userlogin\",\n  \"password\": \"passowrd\",\n  \"first_name\": \"МоеИмя\",\n  \"last_name\": \"Фамилия\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url}}/v1/users/register",
+						"description": "### Регистрация\nРегистрация нового пользователя.\nПримечание: пользователь создается, но не сохраняется на сервере, здесь имитируется ответ, как будто пользователь был создан и сохранен."
+					},
+					"response": [
+						{
+							"name": "Success - 201 Created",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"login\": \"userlogin\",\n  \"password\": \"passoword\",\n  \"first_name\": \"МоеИмя\",\n  \"last_name\": \"Фамилия\"\n}"
+								},
+								"url": "https://clothapi.progskill.ru/v1/users/register"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.4"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 12 Mar 2025 13:39:42 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "229"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "01958a95-1c5e-72cf-944f-a5c1c9587304"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"702ca39d-5a31-4e61-b25a-126940fbfa20\",\n    \"login\": \"userlogin\",\n    \"first_name\": \"МоеИмя\",\n    \"last_name\": \"Фамилия\",\n    \"role\": \"USER\",\n    \"updated_at\": \"2025-03-12T13:39:42.814660853Z\",\n    \"created_at\": \"2025-03-12T13:39:42.814660853Z\"\n}"
+						},
+						{
+							"name": "Error - 409 Conflict",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"login\": \"user\",\n  \"password\": \"passowrd\",\n  \"first_name\": \"МоеИмя\",\n  \"last_name\": \"Фамилия\"\n}"
+								},
+								"url": "{{url}}/v1/users/register"
+							},
+							"status": "Conflict",
+							"code": 409,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.4"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 12 Mar 2025 13:39:50 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "121"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "01958a95-39e6-7cb9-92e6-896a95b29dda"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"current login already registered\",\n    \"code\": \"LOGIN_ALREADY_EXISTS\",\n    \"datetime\": \"2025-03-11T14:47:52.962195671Z\"\n}"
+						},
+						{
+							"name": "Error - 400 Bad Request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"login\": \"userlogin\",\n  \"password\": \"\",\n  \"first_name\": \"МоеИмя\",\n  \"last_name\": \"Фамилия\"\n}"
+								},
+								"url": "https://clothapi.progskill.ru/v1/users/register"
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.4"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 12 Mar 2025 14:32:48 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "195"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "01958ac5-b89c-7b40-8f5e-d0effd0ba671"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Validation not passed\",\n    \"code\": \"VALIDATION_FAILED\",\n    \"datetime\": \"2025-03-12T14:32:48.541163114Z\",\n    \"details\": [\n        {\n            \"key\": \"password\",\n            \"message\": \"cannot be blank\",\n            \"code\": \"validation_required\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "update (PUT)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"first_name\": \"НовоеИмя\",\n  \"last_name\": \"НоваяФамилия\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url}}/v1/users/b5abfcd1-3c03-4e06-a2da-de5e910922d2",
+						"description": "### Обновление пользователя (PUT)\nОбновить можно имя и фамилию пользователя."
+					},
+					"response": [
+						{
+							"name": "Success - 200 OK",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"first_name\": \"НовоеИмя\",\n  \"last_name\": \"НоваяФамилия\"\n}"
+								},
+								"url": "{{url}}/v1/users/b5abfcd1-3c03-4e06-a2da-de5e910922d2"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.4"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 12 Mar 2025 14:33:23 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "240"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "01958ac6-42c1-7d1f-a917-b9c1c0990553"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"b5abfcd1-3c03-4e06-a2da-de5e910922d2\",\n    \"login\": \"admin\",\n    \"first_name\": \"НовоеИмя\",\n    \"last_name\": \"НоваяФамилия\",\n    \"role\": \"ADMIN\",\n    \"updated_at\": \"2025-03-12T14:33:23.905967006Z\",\n    \"created_at\": \"2020-04-08T14:11:23.518188043Z\"\n}"
+						},
+						{
+							"name": "Error - 404 Not Found",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"first_name\": \"НовоеИмя\",\n  \"last_name\": \"НоваяФамилия\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{url}}/v1/users/00000000-3c03-4e06-a2da-de5e910922d2"
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.4"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 12 Mar 2025 14:33:32 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "97"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "01958ac6-63fc-723f-94ba-d9eb5a7e9307"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"user not found\",\n    \"code\": \"USER_NOT_FOUND\",\n    \"datetime\": \"2025-03-12T14:11:23.520991137Z\"\n}"
+						},
+						{
+							"name": "Error - 400 Bad Request",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"first_name\": \"НовоеИмя\",\n  \"last_name\": \"\"\n}"
+								},
+								"url": "{{url}}/v1/users/b5abfcd1-3c03-4e06-a2da-de5e910922d2"
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.4"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 12 Mar 2025 14:37:10 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "196"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "01958ac9-b690-75bc-81bf-6c5460f11b88"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Validation not passed\",\n    \"code\": \"VALIDATION_FAILED\",\n    \"datetime\": \"2025-03-12T14:37:10.160506878Z\",\n    \"details\": [\n        {\n            \"key\": \"last_name\",\n            \"message\": \"cannot be blank\",\n            \"code\": \"validation_required\"\n        }\n    ]\n}"
+						},
+						{
+							"name": "Error - 403 Forbidden",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"first_name\": \"НовоеИмя\",\n  \"last_name\": \"НоваяФамилия\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{url}}/v1/users/b5abfcd1-3c03-4e06-a2da-de5e910922d2"
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.4"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 13 Mar 2025 13:38:21 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "124"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "01958fba-3a16-7c1a-96bd-edb205fa6270"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Access denied\",\n    \"code\": \"ACCESS_DENIED\",\n    \"datetime\": \"2025-03-13T13:38:21.334938504Z\",\n    \"details\": \"CHANGE_USER_NAME\"\n}"
+						}
+					]
+				},
+				{
+					"name": "update (PATCH)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"first_name\": \"НовоеИмя\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url}}/v1/users/b5abfcd1-3c03-4e06-a2da-de5e910922d2",
+						"description": "### Частичное обновление пользователя (PATCH)\nОбновить можно имя и/или фамилию пользователя."
+					},
+					"response": [
+						{
+							"name": "Success - 200 OK",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"first_name\": \"НовоеИмя\"\n}"
+								},
+								"url": "{{url}}/v1/users/b5abfcd1-3c03-4e06-a2da-de5e910922d2"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.4"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 13 Mar 2025 09:04:31 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "232"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "01958ebf-8898-760a-bcd6-4f2d1791d3bc"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"b5abfcd1-3c03-4e06-a2da-de5e910922d2\",\n    \"login\": \"admin\",\n    \"first_name\": \"НовоеИмя\",\n    \"last_name\": \"Пашечкин\",\n    \"role\": \"ADMIN\",\n    \"updated_at\": \"2025-03-13T09:04:31.898739872Z\",\n    \"created_at\": \"2020-04-08T14:46:59.529805578Z\"\n}"
+						},
+						{
+							"name": "Error - 404 Not Found",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"first_name\": \"НовоеИмя\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{url}}/v1/users/00000000-3c03-4e06-a2da-de5e910922d2"
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.4"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 13 Mar 2025 09:04:40 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "97"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "01958ebf-a925-72ca-92f2-d5e9ad5ffb0c"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"user not found\",\n    \"code\": \"USER_NOT_FOUND\",\n    \"datetime\": \"2025-03-12T14:46:59.532863893Z\"\n}"
+						},
+						{
+							"name": "Error - 400 Bad Request",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"first_name\": \"я\"\n}"
+								},
+								"url": "{{url}}/v1/users/b5abfcd1-3c03-4e06-a2da-de5e910922d2"
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.4"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 13 Mar 2025 09:04:48 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "256"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "01958ebf-c7c2-7c4b-a81e-3a5f4f06d413"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Validation not passed\",\n    \"code\": \"VALIDATION_FAILED\",\n    \"datetime\": \"2025-03-13T09:04:48.069404202Z\",\n    \"details\": [\n        {\n            \"key\": \"first_name\",\n            \"message\": \"the length must be between 4 and 50\",\n            \"code\": \"validation_length_out_of_range\",\n            \"params\": {\n                \"max\": 50,\n                \"min\": 4\n            }\n        }\n    ]\n}"
+						},
+						{
+							"name": "Error - 403 Forbidden",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"first_name\": \"НовоеИмя\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{url}}/v1/users/b5abfcd1-3c03-4e06-a2da-de5e910922d2"
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.4"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 13 Mar 2025 13:38:44 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "124"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "01958fba-9523-7072-b087-b1a178f57262"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Access denied\",\n    \"code\": \"ACCESS_DENIED\",\n    \"datetime\": \"2025-03-13T13:38:44.644448615Z\",\n    \"details\": \"CHANGE_USER_NAME\"\n}"
+						}
+					]
+				}
+			],
+			"description": "## Пользователи\nРаздел для работы с пользователями."
+		},
+		{
+			"name": "brands",
+			"item": [
+				{
+					"name": "brands",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/v1/brands?page=1&per_page=10",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"brands"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"description": "Номер страницы."
+								},
+								{
+									"key": "per_page",
+									"value": "10",
+									"description": "Записей на странице (10 или 20)."
+								},
+								{
+									"key": "name",
+									"value": "e",
+									"description": "Часть названия.",
+									"disabled": true
+								},
+								{
+									"key": "order_by",
+									"value": "updated_at_asc",
+									"description": "Сортировка. Можно выбрать только одно поле для сортировки. Может быть одним из следующих значений:\nname_asc - названию по возрастанию\nname_desc - названию по убыванию\nupdated_at_asc - дате обновления по возрастанию\nupdated_at_desc - дате обновления по убыванию\ncreated_at_asc - дате создания по возрастанию\ncreated_at_desc - дате создания по убыванию",
+									"disabled": true
+								}
+							]
+						},
+						"description": "### Список брендов"
+					},
+					"response": [
+						{
+							"name": "Success - 200 OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/v1/brands?page=1&per_page=10",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"brands"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "per_page",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.4"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 13 Mar 2025 09:07:00 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1245"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "01958ec1-ce63-7bc0-bfd4-c5eff049a2de"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": [\n        {\n            \"id\": \"f29aa974-5963-4d83-87e2-38b6dd2c2da3\",\n            \"name\": \"StyleWave\",\n            \"description\": \"Бренд, вдохновленный современными трендами, предлагает стильную и комфортную одежду для активных людей.\",\n            \"founded_year\": 2015,\n            \"updated_at\": \"2024-11-24T14:46:59.529625599Z\",\n            \"created_at\": \"2023-11-01T14:46:59.529727834Z\"\n        },\n        {\n            \"id\": \"b3d4eef6-9e02-4858-b692-0000596f3a2d\",\n            \"name\": \"UrbanThreads\",\n            \"description\": \"Городской бренд, специализирующийся на создании уникальных и модных вещей для молодежи.\",\n            \"founded_year\": 2018,\n            \"updated_at\": \"2024-06-30T14:46:59.529728126Z\",\n            \"created_at\": \"2023-04-11T14:46:59.529728342Z\"\n        },\n        {\n            \"id\": \"70731836-d065-4207-a539-612336558909\",\n            \"name\": \"CottonCraft\",\n            \"description\": \"Бренд, который фокусируется на высококачественном хлопке и экологически чистых материалах для создания удобной одежды.\",\n            \"founded_year\": 2020,\n            \"updated_at\": \"2024-12-15T14:46:59.529728551Z\",\n            \"created_at\": \"2023-10-01T14:46:59.529728768Z\"\n        }\n    ],\n    \"page\": 1,\n    \"per_page\": 10,\n    \"total_pages\": 1,\n    \"total_count\": 3,\n    \"has_next\": false\n}"
+						},
+						{
+							"name": "Error - 400 Bad Request",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/v1/brands?page=1&per_page=50",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"brands"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "per_page",
+											"value": "50",
+											"description": "Ошибка! Записей на странице может быть либо 10, либо 20."
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.4"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 13 Mar 2025 09:44:57 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "203"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "01958ee4-8a4b-78ee-b2fb-8d492cda4baa"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Validation not passed\",\n    \"code\": \"VALIDATION_FAILED\",\n    \"datetime\": \"2025-03-13T09:44:57.172534245Z\",\n    \"details\": [\n        {\n            \"key\": \"per_page\",\n            \"message\": \"must be a valid value\",\n            \"code\": \"validation_in_invalid\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "byID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{url}}/v1/brands/b3d4eef6-9e02-4858-b692-0000596f3a2d",
+						"description": "### Бренд по ID"
+					},
+					"response": [
+						{
+							"name": "Success - 200 OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "https://clothapi.progskill.ru/v1/brands/b3d4eef6-9e02-4858-b692-0000596f3a2d"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.4"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 13 Mar 2025 09:45:53 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "359"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "01958ee5-6534-70e9-9c4d-c5a49603c743"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"b3d4eef6-9e02-4858-b692-0000596f3a2d\",\n    \"name\": \"UrbanThreads\",\n    \"description\": \"Городской бренд, специализирующийся на создании уникальных и модных вещей для молодежи.\",\n    \"founded_year\": 2018,\n    \"updated_at\": \"2024-06-29T14:47:52.959734006Z\",\n    \"created_at\": \"2023-04-10T14:47:52.959734242Z\"\n}"
+						},
+						{
+							"name": "Error - 404 Not Found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{url}}/v1/brands/00000000-9e02-4858-b692-0000596f3a2d"
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.4"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 13 Mar 2025 09:46:05 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "99"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "01958ee5-940b-7930-a019-c49d59c286f0"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"brand not found\",\n    \"code\": \"BRAND_NOT_FOUND\",\n    \"datetime\": \"2025-03-12T14:46:59.532862566Z\"\n}"
+						}
+					]
+				},
+				{
+					"name": "create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"brandName\",\n  \"description\": \"description of brand\",\n  \"founded_year\": 2025\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url}}/v1/brands",
+						"description": "### Создание бренда"
+					},
+					"response": [
+						{
+							"name": "Success - 201 Created",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"brandName\",\n  \"description\": \"description of brand\",\n  \"founded_year\": 2025\n}"
+								},
+								"url": "{{url}}/v1/brands"
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.4"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 13 Mar 2025 09:47:18 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "214"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "01958ee6-b3ad-79cb-8bbd-e9c2537004f3"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"15c136cb-f1fb-4cb7-a283-d889d7790b12\",\n    \"name\": \"brandName\",\n    \"description\": \"description of brand\",\n    \"founded_year\": 2025,\n    \"updated_at\": \"2025-03-13T09:47:18.829865838Z\",\n    \"created_at\": \"2025-03-13T09:47:18.829865838Z\"\n}"
+						},
+						{
+							"name": "Error - 400 Bad Request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"brandName\",\n  \"description\": \"description of brand\",\n  \"founded_year\": 5000\n}"
+								},
+								"url": "{{url}}/v1/brands"
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.4"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 13 Mar 2025 09:48:51 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "228"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "01958ee8-1bed-79dd-a9b8-574adadb5b8c"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Validation not passed\",\n    \"code\": \"VALIDATION_FAILED\",\n    \"datetime\": \"2025-03-13T09:48:51.053774184Z\",\n    \"details\": [\n        {\n            \"key\": \"founded_year\",\n            \"message\": \"founded year cannot be greater than the current year\",\n            \"code\": \"future_year\"\n        }\n    ]\n}"
+						},
+						{
+							"name": "Error - 403 Forbidden",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"brandName\",\n  \"description\": \"description of brand\",\n  \"founded_year\": 2025\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{url}}/v1/brands"
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.4"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 13 Mar 2025 13:39:56 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "120"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "01958fbb-af0c-731f-be87-4859b965f288"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Access denied\",\n    \"code\": \"ACCESS_DENIED\",\n    \"datetime\": \"2025-03-13T13:39:56.812343354Z\",\n    \"details\": \"CREATE_BRAND\"\n}"
+						}
+					]
+				},
+				{
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"new brand name\",\n  \"description\": \"new description name\",\n  \"founded_year\": 1990\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url}}/v1/brands/b3d4eef6-9e02-4858-b692-0000596f3a2d",
+						"description": "### Обновление бренда"
+					},
+					"response": [
+						{
+							"name": "Success - 200 OK",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"new brand name\",\n  \"description\": \"new description name\",\n  \"founded_year\": 1990\n}"
+								},
+								"url": "{{url}}/v1/brands/b3d4eef6-9e02-4858-b692-0000596f3a2d"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.4"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 13 Mar 2025 09:49:14 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "219"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "01958ee8-7605-7ef8-9c4d-559a9d70bcb5"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"b3d4eef6-9e02-4858-b692-0000596f3a2d\",\n    \"name\": \"new brand name\",\n    \"description\": \"new description name\",\n    \"founded_year\": 1990,\n    \"updated_at\": \"2025-03-13T09:49:14.118110578Z\",\n    \"created_at\": \"2023-04-11T14:46:59.529728342Z\"\n}"
+						},
+						{
+							"name": "Error - 404 Not Found",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"new brand name\",\n  \"description\": \"new description name\",\n  \"founded_year\": 1990\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{url}}/v1/brands/00000000-9e02-4858-b692-0000596f3a2d"
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.4"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 13 Mar 2025 09:49:22 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "99"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "01958ee8-9561-72d8-902c-071875fb4bbb"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"brand not found\",\n    \"code\": \"BRAND_NOT_FOUND\",\n    \"datetime\": \"2025-03-12T14:46:59.532862566Z\"\n}"
+						},
+						{
+							"name": "Error - 403 Forbidden",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"new brand name\",\n  \"description\": \"new description name\",\n  \"founded_year\": 1990\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{url}}/v1/brands/b3d4eef6-9e02-4858-b692-0000596f3a2d"
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.4"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 13 Mar 2025 13:40:18 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "120"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "01958fbc-046a-76e8-8c64-c834c5a33151"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Access denied\",\n    \"code\": \"ACCESS_DENIED\",\n    \"datetime\": \"2025-03-13T13:40:18.666600006Z\",\n    \"details\": \"CHANGE_BRAND\"\n}"
+						}
+					]
+				},
+				{
+					"name": "delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": "{{url}}/v1/brands/b3d4eef6-9e02-4858-b692-0000596f3a2d",
+						"description": "### Удаление бренда"
+					},
+					"response": [
+						{
+							"name": "Success - 204 No Content",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": "{{url}}/v1/brands/b3d4eef6-9e02-4858-b692-0000596f3a2d"
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Error - 404 Not Found",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"new brand name\",\n  \"description\": \"new description name\",\n  \"founded_year\": 1990\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{url}}/v1/brands/00000000-9e02-4858-b692-0000596f3a2d"
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.4"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 13 Mar 2025 09:50:42 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "99"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "01958ee9-cff0-7b21-b827-e77a3fed04f3"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"brand not found\",\n    \"code\": \"BRAND_NOT_FOUND\",\n    \"datetime\": \"2025-03-12T14:46:59.532862566Z\"\n}"
+						},
+						{
+							"name": "Error - 403 Forbidden",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": "{{url}}/v1/brands/b3d4eef6-9e02-4858-b692-0000596f3a2d"
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.4"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 13 Mar 2025 13:40:50 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "120"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "01958fbc-819c-7b35-ad55-7716edcf2d2d"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Access denied\",\n    \"code\": \"ACCESS_DENIED\",\n    \"datetime\": \"2025-03-13T13:40:50.716858488Z\",\n    \"details\": \"DELETE_BRAND\"\n}"
+						}
+					]
+				}
+			],
+			"description": "## Бренды\nРаздел для работы с брендами."
+		},
+		{
+			"name": "categories",
+			"item": [
+				{
+					"name": "categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/v1/categories?page=1&per_page=10&order_by=updated_at_asc",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"categories"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"description": "Номер страницы."
+								},
+								{
+									"key": "per_page",
+									"value": "10",
+									"description": "Записей на странице (10 или 20)."
+								},
+								{
+									"key": "name",
+									"value": "к",
+									"description": "Часть названия.",
+									"disabled": true
+								},
+								{
+									"key": "order_by",
+									"value": "updated_at_asc",
+									"description": "Сортировка. Можно выбрать только одно поле для сортировки. Может быть одним из следующих значений:\nname_asc - названию по возрастанию\nname_desc - названию по убыванию\nupdated_at_asc - дате обновления по возрастанию\nupdated_at_desc - дате обновления по убыванию\ncreated_at_asc - дате создания по возрастанию\ncreated_at_desc - дате создания по убыванию"
+								}
+							]
+						},
+						"description": "### Список категорий"
+					},
+					"response": [
+						{
+							"name": "Success - 200 OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/v1/categories?page=1&per_page=10&order_by=updated_at_asc",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"categories"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "per_page",
+											"value": "10"
+										},
+										{
+											"key": "order_by",
+											"value": "updated_at_asc"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.4"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 13 Mar 2025 09:51:11 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "1016"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "01958eea-4128-753d-88fe-6070ec61d0e5"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": [\n        {\n            \"id\": \"e7c8f204-2b8d-4871-9249-055d919c32ce\",\n            \"name\": \"Худи\",\n            \"description\": \"Худи, свитер или свитшот, трикотаж или флис с капюшоном.\",\n            \"updated_at\": \"2024-07-16T14:46:59.529733947Z\",\n            \"created_at\": \"2021-02-25T14:46:59.529734163Z\"\n        },\n        {\n            \"id\": \"569b8bf5-8b34-45d9-bb09-9143346c877f\",\n            \"name\": \"Куртки\",\n            \"description\": \"Куртки, разных расцветок и форм.\",\n            \"updated_at\": \"2024-11-03T14:46:59.529734371Z\",\n            \"created_at\": \"2021-03-15T14:46:59.529734579Z\"\n        },\n        {\n            \"id\": \"02966ea0-7f83-42bb-a9a3-51e83fc03621\",\n            \"name\": \"Футболки\",\n            \"description\": \"Футболки с короткими рукавами, если рукава длинные, это бы называлось лонгслив, я только когда создавал эти категории узнал об этом :)\",\n            \"updated_at\": \"2024-11-30T14:46:59.529733483Z\",\n            \"created_at\": \"2021-01-01T14:46:59.529733716Z\"\n        }\n    ],\n    \"page\": 1,\n    \"per_page\": 10,\n    \"total_pages\": 1,\n    \"total_count\": 3,\n    \"has_next\": false\n}"
+						},
+						{
+							"name": "Error - 400 Bad Request",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/v1/categories?page=1&per_page=50",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"categories"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1",
+											"description": "Номер страницы."
+										},
+										{
+											"key": "per_page",
+											"value": "50",
+											"description": "Ошибка! Записей на странице может быть либо 10, либо 20."
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.4"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 13 Mar 2025 09:52:54 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "203"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "01958eeb-d20e-79b2-80fa-0c03c23b7ce7"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Validation not passed\",\n    \"code\": \"VALIDATION_FAILED\",\n    \"datetime\": \"2025-03-13T09:52:54.286697041Z\",\n    \"details\": [\n        {\n            \"key\": \"per_page\",\n            \"message\": \"must be a valid value\",\n            \"code\": \"validation_in_invalid\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "byID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{url}}/v1/categories/e7c8f204-2b8d-4871-9249-055d919c32ce",
+						"description": "### Категория по ID"
+					},
+					"response": [
+						{
+							"name": "Success - 200 OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{url}}/v1/categories/e7c8f204-2b8d-4871-9249-055d919c32ce"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.4"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 13 Mar 2025 09:53:07 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "274"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "01958eec-05d0-702e-9446-e970b6300afa"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"e7c8f204-2b8d-4871-9249-055d919c32ce\",\n    \"name\": \"Худи\",\n    \"description\": \"Худи, свитер или свитшот, трикотаж или флис с капюшоном.\",\n    \"updated_at\": \"2024-07-16T14:46:59.529733947Z\",\n    \"created_at\": \"2021-02-25T14:46:59.529734163Z\"\n}"
+						},
+						{
+							"name": "Error - 404 Not Found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{url}}/v1/categories/00000000-2b8d-4871-9249-055d919c32ce"
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.4"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 13 Mar 2025 09:53:13 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "105"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "01958eec-1d93-7675-8f84-6546fd37dfb6"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"category not found\",\n    \"code\": \"CATEGORY_NOT_FOUND\",\n    \"datetime\": \"2025-03-12T14:46:59.532862781Z\"\n}"
+						}
+					]
+				},
+				{
+					"name": "create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"categoryName\",\n  \"description\": \"description of category\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url}}/v1/categories",
+						"description": "### Создание категории"
+					},
+					"response": [
+						{
+							"name": "Success - 201 Created",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"categoryName\",\n  \"description\": \"description of category\"\n}"
+								},
+								"url": "{{url}}/v1/categories"
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.4"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 13 Mar 2025 09:53:22 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "200"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "01958eec-404a-73e7-a462-930941ac9cb3"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"dcffbcaa-ea36-4180-b370-f6d608902cba\",\n    \"name\": \"categoryName\",\n    \"description\": \"description of category\",\n    \"updated_at\": \"2025-03-13T09:53:22.506400648Z\",\n    \"created_at\": \"2025-03-13T09:53:22.506400648Z\"\n}"
+						},
+						{
+							"name": "Error - 400 Bad Request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"categoryName\",\n  \"description\": \"\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{url}}/v1/categories"
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.4"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 13 Mar 2025 09:53:52 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "198"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "01958eec-b3ae-7b1c-97ee-b0a8906878ac"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Validation not passed\",\n    \"code\": \"VALIDATION_FAILED\",\n    \"datetime\": \"2025-03-13T09:53:52.046846922Z\",\n    \"details\": [\n        {\n            \"key\": \"description\",\n            \"message\": \"cannot be blank\",\n            \"code\": \"validation_required\"\n        }\n    ]\n}"
+						},
+						{
+							"name": "Error - 403 Forbidden",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"categoryName\",\n  \"description\": \"description of category\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{url}}/v1/categories"
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.4"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 13 Mar 2025 13:41:35 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "123"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "01958fbd-2ffa-7d35-8f94-9e83460a8612"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Access denied\",\n    \"code\": \"ACCESS_DENIED\",\n    \"datetime\": \"2025-03-13T13:41:35.355062131Z\",\n    \"details\": \"CREATE_CATEGORY\"\n}"
+						}
+					]
+				},
+				{
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"new category name\",\n  \"description\": \"new description name\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url}}/v1/categories/e7c8f204-2b8d-4871-9249-055d919c32ce",
+						"description": "### Обновление категории"
+					},
+					"response": [
+						{
+							"name": "Success - 200 OK",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"new category name\",\n  \"description\": \"new description name\"\n}"
+								},
+								"url": "{{url}}/v1/categories/e7c8f204-2b8d-4871-9249-055d919c32ce"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.4"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 13 Mar 2025 09:54:09 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "202"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "01958eec-f8b8-7b2f-b272-c0c9388581aa"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"e7c8f204-2b8d-4871-9249-055d919c32ce\",\n    \"name\": \"new category name\",\n    \"description\": \"new description name\",\n    \"updated_at\": \"2025-03-13T09:54:09.720902391Z\",\n    \"created_at\": \"2021-02-25T14:46:59.529734163Z\"\n}"
+						},
+						{
+							"name": "Error - 404 Not Found",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"new category name\",\n  \"description\": \"new description name\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{url}}/v1/categories/00000000-2b8d-4871-9249-055d919c32ce"
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.4"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 13 Mar 2025 09:54:37 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "105"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "01958eed-65bd-71b3-ad7f-1371c76e1d7b"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"category not found\",\n    \"code\": \"CATEGORY_NOT_FOUND\",\n    \"datetime\": \"2025-03-12T14:46:59.532862781Z\"\n}"
+						},
+						{
+							"name": "Error - 403 Forbidden",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"new category name\",\n  \"description\": \"new description name\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{url}}/v1/categories/e7c8f204-2b8d-4871-9249-055d919c32ce"
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.4"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 13 Mar 2025 13:41:43 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "123"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "01958fbd-4fa9-7c02-9bb0-4bbe9dfdde41"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Access denied\",\n    \"code\": \"ACCESS_DENIED\",\n    \"datetime\": \"2025-03-13T13:41:43.466694084Z\",\n    \"details\": \"CHANGE_CATEGORY\"\n}"
+						}
+					]
+				},
+				{
+					"name": "delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": "{{url}}/v1/categories/e7c8f204-2b8d-4871-9249-055d919c32ce",
+						"description": "### Удаление категории"
+					},
+					"response": [
+						{
+							"name": "Success - 204 No Content",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": "{{url}}/v1/categories/e7c8f204-2b8d-4871-9249-055d919c32ce"
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Error - 404 Not Found",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": "{{url}}/v1/categories/00000000-2b8d-4871-9249-055d919c32ce"
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.4"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 13 Mar 2025 09:55:15 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "105"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "01958eed-fab9-7bc1-a712-b6a5d35c62a2"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"category not found\",\n    \"code\": \"CATEGORY_NOT_FOUND\",\n    \"datetime\": \"2025-03-12T14:46:59.532862781Z\"\n}"
+						},
+						{
+							"name": "Error - 403 Forbidden",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": "{{url}}/v1/categories/e7c8f204-2b8d-4871-9249-055d919c32ce"
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.4"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 13 Mar 2025 13:41:48 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "123"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "01958fbd-64f4-7603-bbab-26e1cea01a8b"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Access denied\",\n    \"code\": \"ACCESS_DENIED\",\n    \"datetime\": \"2025-03-13T13:41:48.916480155Z\",\n    \"details\": \"DELETE_CATEGORY\"\n}"
+						}
+					]
+				}
+			],
+			"description": "## Категории\nРаздел для работы с категориями."
+		},
+		{
+			"name": "products",
+			"item": [
+				{
+					"name": "products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/v1/products?page=1&per_page=10&name=женская куртка",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"v1",
+								"products"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"description": "Номер страницы."
+								},
+								{
+									"key": "per_page",
+									"value": "10",
+									"description": "Записей на странице (10 или 20)."
+								},
+								{
+									"key": "category_id",
+									"value": "02966ea0-7f83-42bb-a9a3-51e83fc03621",
+									"description": "ID категории",
+									"disabled": true
+								},
+								{
+									"key": "brand_id",
+									"value": "70731836-d065-4207-a539-612336558909",
+									"description": "ID бренда",
+									"disabled": true
+								},
+								{
+									"key": "name",
+									"value": "женская куртка",
+									"description": "Часть названия."
+								},
+								{
+									"key": "min_price",
+									"value": "320000",
+									"description": "Минимальная цена",
+									"disabled": true
+								},
+								{
+									"key": "max_price",
+									"value": "500000",
+									"description": "Максимальная цена",
+									"disabled": true
+								},
+								{
+									"key": "min_stock",
+									"value": "15",
+									"description": "Минимальное количество товара на складе",
+									"disabled": true
+								},
+								{
+									"key": "min_rating",
+									"value": "9000",
+									"description": "Минимальный рейтинг",
+									"disabled": true
+								},
+								{
+									"key": "max_rating",
+									"value": "9500",
+									"description": "Максимальный рейтинг",
+									"disabled": true
+								},
+								{
+									"key": "order_by",
+									"value": "updated_at_asc",
+									"description": "Сортировка. Можно выбрать только одно поле для сортировки. Может быть одним из следующих значений:\nname_asc - имени по возрастанию\nname_desc - имени по убыванию\nprice_asc - цене по возрастанию\nprice_desc - цене по убыванию\nrating_asc - рейтингу по возрастанию\nrating_desc - рейтингу по убыванию\nupdated_at_asc - дате обновления по возрастанию\nupdated_at_desc - дате обновления по убыванию\ncreated_at_asc - дате создания по возрастанию\ncreated_at_desc - дате создания по убыванию",
+									"disabled": true
+								}
+							]
+						},
+						"description": "### Список продуктов"
+					},
+					"response": [
+						{
+							"name": "Success - 200 OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/v1/products?page=1&per_page=10&min_price=320000",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"products"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "per_page",
+											"value": "10"
+										},
+										{
+											"key": "min_price",
+											"value": "320000"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.4"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 13 Mar 2025 09:55:35 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "01958eee-46c6-7c95-83b8-30417869f075"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"data\": [\n        {\n            \"id\": \"76743872-4ce4-4ec5-8591-60cd1fd412ec\",\n            \"category_id\": \"e7c8f204-2b8d-4871-9249-055d919c32ce\",\n            \"brand_id\": \"70731836-d065-4207-a539-612336558909\",\n            \"name\": \"Прочный свитер\",\n            \"description\": \"Свитер темных цветов, прочный и идеален для подростков.\",\n            \"price\": 620000,\n            \"stock\": 18,\n            \"images\": [\n                \"/static/products/76743872-4ce4-4ec5-8591-60cd1fd412ec/9d8ea24b-e746-4a0f-8160-e0b8a7be6a27.jpeg\",\n                \"/static/products/76743872-4ce4-4ec5-8591-60cd1fd412ec/44714112-55d9-4730-a852-fcecfdd8078a.jpeg\"\n            ],\n            \"rating\": 8456,\n            \"updated_at\": \"2023-09-29T14:46:59.529793615Z\",\n            \"created_at\": \"2023-08-25T14:46:59.52979381Z\"\n        },\n        {\n            \"id\": \"197fcd63-8a36-4862-b6e8-1eaa60210d11\",\n            \"category_id\": \"e7c8f204-2b8d-4871-9249-055d919c32ce\",\n            \"brand_id\": \"b3d4eef6-9e02-4858-b692-0000596f3a2d\",\n            \"name\": \"Бежевый свитшот\",\n            \"description\": \"Молодежный бежевый свитшот с гладкой поверхностью, стильный и удобный.\",\n            \"price\": 850000,\n            \"stock\": 15,\n            \"images\": [\n                \"/static/products/197fcd63-8a36-4862-b6e8-1eaa60210d11/f6779f6f-2a65-430a-8e2b-908e68eb0de3.jpeg\",\n                \"/static/products/197fcd63-8a36-4862-b6e8-1eaa60210d11/67a0ba6c-0da7-4e75-8e23-1f097e83a7b4.jpeg\"\n            ],\n            \"rating\": 7129,\n            \"updated_at\": \"2023-05-16T14:46:59.529792998Z\",\n            \"created_at\": \"2023-05-14T14:46:59.529793196Z\"\n        },\n        {\n            \"id\": \"19619ed1-4f61-4b92-a0f3-6646db6a633f\",\n            \"category_id\": \"e7c8f204-2b8d-4871-9249-055d919c32ce\",\n            \"brand_id\": \"b3d4eef6-9e02-4858-b692-0000596f3a2d\",\n            \"name\": \"Стильный черный свитшот\",\n            \"description\": \"Черный свитшот, стильный и молодежный, подходит для любого образа.\",\n            \"price\": 750000,\n            \"stock\": 10,\n            \"images\": [\n                \"/static/products/19619ed1-4f61-4b92-a0f3-6646db6a633f/94eec41f-67c3-438c-8785-0cdbaf544813.jpeg\"\n            ],\n            \"rating\": 9123,\n            \"updated_at\": \"2024-01-14T14:46:59.529794225Z\",\n            \"created_at\": \"2024-01-01T14:46:59.529794424Z\"\n        },\n        {\n            \"id\": \"89b38300-c3d6-4ff0-b5c0-7a12fd29b7d5\",\n            \"category_id\": \"e7c8f204-2b8d-4871-9249-055d919c32ce\",\n            \"brand_id\": \"f29aa974-5963-4d83-87e2-38b6dd2c2da3\",\n            \"name\": \"Дорогой синий свитшот\",\n            \"description\": \"Синий свитшот из 100% шелка, дорогой и качественный материал.\",\n            \"price\": 1450000,\n            \"stock\": 5,\n            \"images\": [\n                \"/static/products/89b38300-c3d6-4ff0-b5c0-7a12fd29b7d5/83c0f0b2-19fa-4823-a206-dec0438fe561.jpeg\"\n            ],\n            \"rating\": 6789,\n            \"updated_at\": \"2025-02-11T14:46:59.529794863Z\",\n            \"created_at\": \"2025-01-03T14:46:59.529795059Z\"\n        },\n        {\n            \"id\": \"b0e7dbdd-ddf1-4a85-af49-371f3e7c0e7e\",\n            \"category_id\": \"569b8bf5-8b34-45d9-bb09-9143346c877f\",\n            \"brand_id\": \"70731836-d065-4207-a539-612336558909\",\n            \"name\": \"Желтая молодежная куртка\",\n            \"description\": \"Желтая куртка на молнии с карманами спереди и капюшоном, молодежная.\",\n            \"price\": 400000,\n            \"stock\": 10,\n            \"images\": [\n                \"/static/products/b0e7dbdd-ddf1-4a85-af49-371f3e7c0e7e/ab19dc30-5d3b-4458-a2e0-53489db229db.jpeg\"\n            ],\n            \"rating\": 7887,\n            \"updated_at\": \"2025-02-02T14:46:59.529789929Z\",\n            \"created_at\": \"2025-02-01T14:46:59.529790149Z\"\n        },\n        {\n            \"id\": \"79af2136-2c52-415a-ac08-5ece45134ee4\",\n            \"category_id\": \"569b8bf5-8b34-45d9-bb09-9143346c877f\",\n            \"brand_id\": \"b3d4eef6-9e02-4858-b692-0000596f3a2d\",\n            \"name\": \"Серая обычная куртка\",\n            \"description\": \"Обычная куртка серого цвета, для прохладной погоды лета.\",\n            \"price\": 320000,\n            \"stock\": 15,\n            \"images\": [\n                \"/static/products/79af2136-2c52-415a-ac08-5ece45134ee4/79af2136-2c52-415a-ac08-5ece45134ee4.jpeg\"\n            ],\n            \"rating\": 6922,\n            \"updated_at\": \"2024-09-15T14:46:59.529769056Z\",\n            \"created_at\": \"2024-09-15T14:46:59.52976927Z\"\n        },\n        {\n            \"id\": \"895cfb1f-fc80-402d-a6a4-2f51fceafc18\",\n            \"category_id\": \"569b8bf5-8b34-45d9-bb09-9143346c877f\",\n            \"brand_id\": \"70731836-d065-4207-a539-612336558909\",\n            \"name\": \"Футуристичная белая куртка\",\n            \"description\": \"Легкая белая куртка с отражающей поверхностью, для девушек.\",\n            \"price\": 480000,\n            \"stock\": 20,\n            \"images\": [\n                \"/static/products/895cfb1f-fc80-402d-a6a4-2f51fceafc18/52b41acb-548b-4b9f-8cdd-79f0987dd931.jpeg\",\n                \"/static/products/895cfb1f-fc80-402d-a6a4-2f51fceafc18/dc4ce329-80e8-4185-b4d7-1a19317c108e.jpeg\",\n                \"/static/products/895cfb1f-fc80-402d-a6a4-2f51fceafc18/cd8774bc-5f17-44c6-a45f-380a09bae33e.jpeg\",\n                \"/static/products/895cfb1f-fc80-402d-a6a4-2f51fceafc18/61848d5c-424e-4414-9d9e-fc2c10ad3c38.jpeg\",\n                \"/static/products/895cfb1f-fc80-402d-a6a4-2f51fceafc18/9ea04d38-a4b8-4c30-bfe5-7a7a970780d1.jpeg\"\n            ],\n            \"rating\": 7545,\n            \"updated_at\": \"2023-02-22T14:46:59.529760944Z\",\n            \"created_at\": \"2023-01-24T14:46:59.52976114Z\"\n        },\n        {\n            \"id\": \"a2871b8e-38c7-4322-88c3-3ceafe47a89e\",\n            \"category_id\": \"569b8bf5-8b34-45d9-bb09-9143346c877f\",\n            \"brand_id\": \"b3d4eef6-9e02-4858-b692-0000596f3a2d\",\n            \"name\": \"Бежевая легкая куртка\",\n            \"description\": \"Легкая бежевая куртка с пуговицами и карманами по бокам.\",\n            \"price\": 320000,\n            \"stock\": 12,\n            \"images\": [\n                \"/static/products/a2871b8e-38c7-4322-88c3-3ceafe47a89e/73d3a473-6ad2-46f5-bc51-fc07bed0e8b0.jpeg\"\n            ],\n            \"rating\": 7161,\n            \"updated_at\": \"2024-05-19T14:46:59.529789333Z\",\n            \"created_at\": \"2024-03-22T14:46:59.529789546Z\"\n        },\n        {\n            \"id\": \"c8722c4b-a372-4219-af29-c1fedaef9833\",\n            \"category_id\": \"569b8bf5-8b34-45d9-bb09-9143346c877f\",\n            \"brand_id\": \"b3d4eef6-9e02-4858-b692-0000596f3a2d\",\n            \"name\": \"Огненно-черная куртка\",\n            \"description\": \"Куртка с встроенными светодиодами оранжевого пламени, молодежная.\",\n            \"price\": 600000,\n            \"stock\": 8,\n            \"images\": [\n                \"/static/products/c8722c4b-a372-4219-af29-c1fedaef9833/6f2efb8d-80bd-4a0c-93cc-9d1da5a1fbfa.jpeg\",\n                \"/static/products/c8722c4b-a372-4219-af29-c1fedaef9833/354516ea-e6aa-41c0-96c0-d45b0d7e7987.jpeg\",\n                \"/static/products/c8722c4b-a372-4219-af29-c1fedaef9833/4b6ad4fb-86dc-4c2e-952a-43efafa5f90c.jpeg\"\n            ],\n            \"rating\": 9771,\n            \"updated_at\": \"2025-03-07T14:46:59.529760288Z\",\n            \"created_at\": \"2025-03-06T14:46:59.529760482Z\"\n        },\n        {\n            \"id\": \"a14d645f-4440-43f3-9ab4-9ed54907ce27\",\n            \"category_id\": \"e7c8f204-2b8d-4871-9249-055d919c32ce\",\n            \"brand_id\": \"f29aa974-5963-4d83-87e2-38b6dd2c2da3\",\n            \"name\": \"Зеленый вельветовый худи\",\n            \"description\": \"Зеленый вельветовый худи, мужской, отличного качества.\",\n            \"price\": 720000,\n            \"stock\": 7,\n            \"images\": [\n                \"/static/products/a14d645f-4440-43f3-9ab4-9ed54907ce27/d34ddc08-072a-4462-a89f-404797eb0a7e.jpeg\"\n            ],\n            \"rating\": 9124,\n            \"updated_at\": \"2024-02-15T14:46:59.529803254Z\",\n            \"created_at\": \"2022-12-25T14:46:59.529803455Z\"\n        }\n    ],\n    \"page\": 1,\n    \"per_page\": 10,\n    \"total_pages\": 6,\n    \"total_count\": 52,\n    \"has_next\": true\n}"
+						},
+						{
+							"name": "Error - 400 Bad Request",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/v1/products?page=1&per_page=50",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"v1",
+										"products"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "per_page",
+											"value": "50",
+											"description": "Ошибка! Записей на странице может быть либо 10, либо 20."
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.4"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 13 Mar 2025 09:58:20 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "203"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "01958ef0-ca87-7e0f-bf14-753417c98404"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Validation not passed\",\n    \"code\": \"VALIDATION_FAILED\",\n    \"datetime\": \"2025-03-13T09:58:20.040017092Z\",\n    \"details\": [\n        {\n            \"key\": \"per_page\",\n            \"message\": \"must be a valid value\",\n            \"code\": \"validation_in_invalid\"\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "byID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{url}}/v1/products/a6f53cfe-51ca-4971-b596-5765618df9ae",
+						"description": "### Продукт по ID"
+					},
+					"response": [
+						{
+							"name": "Success - 200 OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{url}}/v1/products/f9f9bbb0-54ed-4115-b61c-2a6b80a816f8"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.4"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 13 Mar 2025 09:58:41 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "562"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "01958ef1-1f17-7e66-959b-3f6ba67852e5"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"f9f9bbb0-54ed-4115-b61c-2a6b80a816f8\",\n    \"category_id\": \"02966ea0-7f83-42bb-a9a3-51e83fc03621\",\n    \"brand_id\": \"f29aa974-5963-4d83-87e2-38b6dd2c2da3\",\n    \"name\": \"Черная футболка с принтом\",\n    \"description\": \"Яркая черная футболка с оригинальным принтом на груди.\",\n    \"price\": 130000,\n    \"stock\": 0,\n    \"images\": [\n        \"/static/products/f9f9bbb0-54ed-4115-b61c-2a6b80a816f8/ef28c397-773f-4088-9f78-ddb9e21dc596.jpeg\"\n    ],\n    \"rating\": 7788,\n    \"updated_at\": \"2025-02-07T14:46:59.52975585Z\",\n    \"created_at\": \"2025-02-07T14:46:59.529756053Z\"\n}"
+						},
+						{
+							"name": "Error - 404 Product Not Found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": "{{url}}/v1/products/00000000-54ed-4115-b61c-2a6b80a816f8"
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.4"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 13 Mar 2025 09:58:47 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "103"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "01958ef1-36ca-7dca-b1f1-61d52741dafd"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"product not found\",\n    \"code\": \"PRODUCT_NOT_FOUND\",\n    \"datetime\": \"2025-03-12T14:46:59.532863005Z\"\n}"
+						}
+					]
+				},
+				{
+					"name": "create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"category_id\": \"02966ea0-7f83-42bb-a9a3-51e83fc03621\",\n  \"brand_id\": \"70731836-d065-4207-a539-612336558909\",\n  \"name\": \"Цветная футболка в полоску\",\n  \"description\": \"Яркая, цветная футболка.\",\n  \"price\": 190000,\n  \"stock\": 15\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url}}/v1/products",
+						"description": "### Создание продукта"
+					},
+					"response": [
+						{
+							"name": "Success - 201 Created",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"category_id\": \"02966ea0-7f83-42bb-a9a3-51e83fc03621\",\n  \"brand_id\": \"70731836-d065-4207-a539-612336558909\",\n  \"name\": \"Цветная футболка в полоску\",\n  \"description\": \"Яркая, цветная футболка.\",\n  \"price\": 190000,\n  \"stock\": 15\n}"
+								},
+								"url": "{{url}}/v1/products"
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.4"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 13 Mar 2025 09:58:55 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "410"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "01958ef1-55be-72c8-9680-2bda130d9469"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"00bb0ad6-235b-441f-a403-098077fd5ce3\",\n    \"category_id\": \"02966ea0-7f83-42bb-a9a3-51e83fc03621\",\n    \"brand_id\": \"70731836-d065-4207-a539-612336558909\",\n    \"name\": \"Цветная футболка в полоску\",\n    \"description\": \"Яркая, цветная футболка.\",\n    \"price\": 190000,\n    \"stock\": 15,\n    \"images\": [],\n    \"rating\": 0,\n    \"updated_at\": \"2025-03-13T09:58:55.678425918Z\",\n    \"created_at\": \"2025-03-13T09:58:55.678425918Z\"\n}"
+						},
+						{
+							"name": "Error - 404 Category Not Found",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"category_id\": \"00000000-d065-4207-a539-612336558909\",\n  \"brand_id\": \"70731836-d065-4207-a539-612336558909\",\n  \"name\": \"Цветная футболка в полоску\",\n  \"description\": \"Яркая, цветная футболка.\",\n  \"price\": 190000,\n  \"stock\": 15\n}"
+								},
+								"url": "{{url}}/v1/products"
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.4"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 13 Mar 2025 09:59:01 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "105"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "01958ef1-6cc5-728a-909c-2dcdfd11ca7a"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"category not found\",\n    \"code\": \"CATEGORY_NOT_FOUND\",\n    \"datetime\": \"2025-03-12T14:46:59.532863122Z\"\n}"
+						},
+						{
+							"name": "Error - 404 Brand Not Found Copy",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"category_id\": \"02966ea0-7f83-42bb-a9a3-51e83fc03621\",\n  \"brand_id\": \"00000000-d065-4207-a539-612336558909\",\n  \"name\": \"Цветная футболка в полоску\",\n  \"description\": \"Яркая, цветная футболка.\",\n  \"price\": 190000,\n  \"stock\": 15\n}"
+								},
+								"url": "{{url}}/v1/products"
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.4"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 13 Mar 2025 09:59:06 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "99"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "01958ef1-8113-7d05-98e4-6651679e0572"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"brand not found\",\n    \"code\": \"BRAND_NOT_FOUND\",\n    \"datetime\": \"2025-03-12T14:46:59.532863226Z\"\n}"
+						},
+						{
+							"name": "Error - 400 Bad Request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"category_id\": \"02966ea0-7f83-42bb-a9a3-51e83fc03621\",\n  \"brand_id\": \"70731836-d065-4207-a539-612336558909\",\n  \"name\": \"Цветная футболка в полоску\",\n  \"description\": \"Яркая, цветная футболка.\",\n  \"price\": 190000\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{url}}/v1/products"
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.4"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 13 Mar 2025 10:00:08 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "192"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "01958ef2-73da-7ea7-8f52-335788b4d75a"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Validation not passed\",\n    \"code\": \"VALIDATION_FAILED\",\n    \"datetime\": \"2025-03-13T10:00:08.923135719Z\",\n    \"details\": [\n        {\n            \"key\": \"stock\",\n            \"message\": \"cannot be blank\",\n            \"code\": \"validation_required\"\n        }\n    ]\n}"
+						},
+						{
+							"name": "Error - 403 Forbidden",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"category_id\": \"02966ea0-7f83-42bb-a9a3-51e83fc03621\",\n  \"brand_id\": \"70731836-d065-4207-a539-612336558909\",\n  \"name\": \"Цветная футболка в полоску\",\n  \"description\": \"Яркая, цветная футболка.\",\n  \"price\": 190000,\n  \"stock\": 15\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{url}}/v1/products"
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.4"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 13 Mar 2025 13:43:34 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "121"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "01958fbf-0261-7020-9e18-7210d52e6432"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Access denied\",\n    \"code\": \"ACCESS_DENIED\",\n    \"datetime\": \"2025-03-13T13:43:34.75513516Z\",\n    \"details\": \"CREATE_PRODUCT\"\n}"
+						}
+					]
+				},
+				{
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"category_id\": \"02966ea0-7f83-42bb-a9a3-51e83fc03621\",\n  \"brand_id\": \"b3d4eef6-9e02-4858-b692-0000596f3a2d\",\n  \"name\": \"Белая футболка\",\n  \"description\": \"Элегантная белая футболка.\",\n  \"price\": 170000,\n  \"stock\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url}}/v1/products/a6f53cfe-51ca-4971-b596-5765618df9ae",
+						"description": "### Обновление продукта"
+					},
+					"response": [
+						{
+							"name": "Success - 200 OK",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"category_id\": \"02966ea0-7f83-42bb-a9a3-51e83fc03621\",\n  \"brand_id\": \"b3d4eef6-9e02-4858-b692-0000596f3a2d\",\n  \"name\": \"Белая футболка\",\n  \"description\": \"Элегантная белая футболка.\",\n  \"price\": 170000,\n  \"stock\": 2\n}"
+								},
+								"url": "{{url}}/v1/products/a6f53cfe-51ca-4971-b596-5765618df9ae"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.4"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 13 Mar 2025 10:00:33 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "590"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "01958ef2-d21c-715f-9de0-09d7a0b9372e"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"a6f53cfe-51ca-4971-b596-5765618df9ae\",\n    \"category_id\": \"02966ea0-7f83-42bb-a9a3-51e83fc03621\",\n    \"brand_id\": \"b3d4eef6-9e02-4858-b692-0000596f3a2d\",\n    \"name\": \"Белая футболка\",\n    \"description\": \"Элегантная белая футболка.\",\n    \"price\": 170000,\n    \"stock\": 2,\n    \"images\": [\n        \"/static/products/a6f53cfe-51ca-4971-b596-5765618df9ae/f0ff0093-5bb3-488d-beb0-8137aa949f30.jpeg\",\n        \"/static/products/a6f53cfe-51ca-4971-b596-5765618df9ae/2f97ecc5-7eae-4106-9c63-4c81b6993acb.jpeg\"\n    ],\n    \"rating\": 7751,\n    \"updated_at\": \"2025-03-13T10:00:33.052241152Z\",\n    \"created_at\": \"2025-03-04T14:46:59.529757234Z\"\n}"
+						},
+						{
+							"name": "Error - 404 Product Not Found",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"category_id\": \"02966ea0-7f83-42bb-a9a3-51e83fc03621\",\n  \"brand_id\": \"b3d4eef6-9e02-4858-b692-0000596f3a2d\",\n  \"name\": \"Белая футболка\",\n  \"description\": \"Элегантная белая футболка.\",\n  \"price\": 170000,\n  \"stock\": 2\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{url}}/v1/products/00000000-51ca-4971-b596-5765618df9ae"
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.4"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 13 Mar 2025 10:00:40 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "103"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "01958ef2-f000-7616-9b47-11ada32a8f09"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"product not found\",\n    \"code\": \"PRODUCT_NOT_FOUND\",\n    \"datetime\": \"2025-03-12T14:46:59.532863005Z\"\n}"
+						},
+						{
+							"name": "Error - 404 Category Not Found",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"category_id\": \"00000000-7f83-42bb-a9a3-51e83fc03621\",\n  \"brand_id\": \"b3d4eef6-9e02-4858-b692-0000596f3a2d\",\n  \"name\": \"Белая футболка\",\n  \"description\": \"Элегантная белая футболка.\",\n  \"price\": 170000,\n  \"stock\": 2\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{url}}/v1/products/a6f53cfe-51ca-4971-b596-5765618df9ae"
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.4"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 13 Mar 2025 10:00:45 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "105"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "01958ef3-0428-7d9c-b104-7afc29555fd4"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"category not found\",\n    \"code\": \"CATEGORY_NOT_FOUND\",\n    \"datetime\": \"2025-03-12T14:46:59.532863122Z\"\n}"
+						},
+						{
+							"name": "Error - 404 Brand Not Found Copy",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"category_id\": \"02966ea0-7f83-42bb-a9a3-51e83fc03621\",\n  \"brand_id\": \"00000000-9e02-4858-b692-0000596f3a2d\",\n  \"name\": \"Белая футболка\",\n  \"description\": \"Элегантная белая футболка.\",\n  \"price\": 170000,\n  \"stock\": 2\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{url}}/v1/products/a6f53cfe-51ca-4971-b596-5765618df9ae"
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.4"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 13 Mar 2025 10:00:50 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "99"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "01958ef3-1747-77c7-8499-a0e5804c3bc2"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"brand not found\",\n    \"code\": \"BRAND_NOT_FOUND\",\n    \"datetime\": \"2025-03-12T14:46:59.532863226Z\"\n}"
+						},
+						{
+							"name": "Error - 400 Bad Request",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"category_id\": \"02966ea0-7f83-42bb-a9a3-51e83fc03621\",\n  \"brand_id\": \"b3d4eef6-9e02-4858-b692-0000596f3a2d\",\n  \"name\": \"Белая футболка\",\n  \"description\": \"Элегантная белая футболка.\",\n  \"price\": 170000\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{url}}/v1/products/a6f53cfe-51ca-4971-b596-5765618df9ae"
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.4"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 13 Mar 2025 10:01:20 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "192"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "01958ef3-8c67-7485-bb9c-60c8d3cf01cc"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Validation not passed\",\n    \"code\": \"VALIDATION_FAILED\",\n    \"datetime\": \"2025-03-13T10:01:20.743522117Z\",\n    \"details\": [\n        {\n            \"key\": \"stock\",\n            \"message\": \"cannot be blank\",\n            \"code\": \"validation_required\"\n        }\n    ]\n}"
+						},
+						{
+							"name": "Error - 403 Forbidden",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"category_id\": \"02966ea0-7f83-42bb-a9a3-51e83fc03621\",\n  \"brand_id\": \"b3d4eef6-9e02-4858-b692-0000596f3a2d\",\n  \"name\": \"Белая футболка\",\n  \"description\": \"Элегантная белая футболка.\",\n  \"price\": 170000,\n  \"stock\": 2\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{url}}/v1/products/a6f53cfe-51ca-4971-b596-5765618df9ae"
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.4"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 13 Mar 2025 13:43:43 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "122"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "01958fbf-2382-7301-a535-ee58f15029f3"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Access denied\",\n    \"code\": \"ACCESS_DENIED\",\n    \"datetime\": \"2025-03-13T13:43:43.234407775Z\",\n    \"details\": \"CHANGE_PRODUCT\"\n}"
+						}
+					]
+				},
+				{
+					"name": "delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": "{{url}}/v1/products/a6f53cfe-51ca-4971-b596-5765618df9ae",
+						"description": "### Удаление продукта"
+					},
+					"response": [
+						{
+							"name": "Success - 204 No Content",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": "{{url}}/v1/products/a6f53cfe-51ca-4971-b596-5765618df9ae"
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": "Text",
+							"header": [],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Error - 404 Not Found",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": "{{url}}/v1/products/00000000-51ca-4971-b596-5765618df9ae"
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.4"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 13 Mar 2025 10:04:21 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "103"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "01958ef6-4f77-78c3-9de8-02654f975f9d"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"product not found\",\n    \"code\": \"PRODUCT_NOT_FOUND\",\n    \"datetime\": \"2025-03-12T14:46:59.532863005Z\"\n}"
+						},
+						{
+							"name": "Error - 403 Forbidden",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": "{{url}}/v1/products/a6f53cfe-51ca-4971-b596-5765618df9ae"
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.4"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 13 Mar 2025 13:43:53 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "122"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "01958fbf-4a69-797e-919f-6d064edf4ca0"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Access denied\",\n    \"code\": \"ACCESS_DENIED\",\n    \"datetime\": \"2025-03-13T13:43:53.193719283Z\",\n    \"details\": \"DELETE_PRODUCT\"\n}"
+						}
+					]
+				},
+				{
+					"name": "upload-photo",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "{{access_token}}"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"value": "",
+									"description": "JPEG или PNG, до 2 МБ.",
+									"type": "file"
+								}
+							]
+						},
+						"url": "{{url}}/v1/products/a6f53cfe-51ca-4971-b596-5765618df9ae/upload-image",
+						"description": "### Загрузка фото продукта"
+					},
+					"response": [
+						{
+							"name": "Success - 200 OK",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "image",
+											"description": "Необходимо указать картинку, которую будем загружать, не более 2МБ.",
+											"type": "file",
+											"src": []
+										}
+									]
+								},
+								"url": "{{url}}/v1/products/a6f53cfe-51ca-4971-b596-5765618df9ae/upload-image"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.4"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 13 Mar 2025 10:05:47 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "783"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "01958ef7-9dd0-7792-8e7a-12bdb67715e2"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"id\": \"a6f53cfe-51ca-4971-b596-5765618df9ae\",\n    \"category_id\": \"02966ea0-7f83-42bb-a9a3-51e83fc03621\",\n    \"brand_id\": \"b3d4eef6-9e02-4858-b692-0000596f3a2d\",\n    \"name\": \"Белая футболка для красивых мужчин\",\n    \"description\": \"Элегантная белая футболка, подчеркивающая стиль и красоту.\",\n    \"price\": 170000,\n    \"stock\": 19,\n    \"images\": [\n        \"/static/products/a6f53cfe-51ca-4971-b596-5765618df9ae/f0ff0093-5bb3-488d-beb0-8137aa949f30.jpeg\",\n        \"/static/products/a6f53cfe-51ca-4971-b596-5765618df9ae/2f97ecc5-7eae-4106-9c63-4c81b6993acb.jpeg\",\n        \"/static/products/a6f53cfe-51ca-4971-b596-5765618df9ae/95b06ae4-f0e0-4763-8c15-37f4b7b5262c.jpeg\"\n    ],\n    \"rating\": 7751,\n    \"updated_at\": \"2025-03-13T10:05:47.355914755Z\",\n    \"created_at\": \"2025-03-05T10:05:46.2055512Z\"\n}"
+						},
+						{
+							"name": "Error - 400 Bad Request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "image",
+											"description": "JPEG или PNG, до 2 МБ.",
+											"type": "file",
+											"src": "/home/shappy/Загрузки/redwood-forest-wallpaper-2560x1600-california-iltwmt.jpg"
+										}
+									]
+								},
+								"url": "{{url}}/v1/products/a6f53cfe-51ca-4971-b596-5765618df9ae/upload-image"
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.4"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 13 Mar 2025 18:14:35 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "221"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "019590b7-21cb-75fb-bbdb-3c813894c2b4"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Validation not passed\",\n    \"code\": \"VALIDATION_FAILED\",\n    \"datetime\": \"2025-03-13T18:14:35.741825552Z\",\n    \"details\": [\n        {\n            \"key\": \"Image\",\n            \"message\": \"too high weight of file, max weight is 2097152 bytes\",\n            \"code\": \"file_weight\"\n        }\n    ]\n}"
+						},
+						{
+							"name": "Error - 403 Forbidden",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "image",
+											"description": "JPEG или PNG, до 2 МБ.",
+											"type": "file",
+											"src": []
+										}
+									]
+								},
+								"url": "{{url}}/v1/products/a6f53cfe-51ca-4971-b596-5765618df9ae/upload-image"
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Server",
+									"value": "nginx/1.27.4"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 13 Mar 2025 13:44:25 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "125"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "X-Request-Id",
+									"value": "01958fbf-c881-7394-a2d9-ff2bad10fb2c"
+								},
+								{
+									"key": "Strict-Transport-Security",
+									"value": "max-age=31536000"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"message\": \"Access denied\",\n    \"code\": \"ACCESS_DENIED\",\n    \"datetime\": \"2025-03-13T13:44:25.499386739Z\",\n    \"details\": \"ADD_PRODUCT_IMAGE\"\n}"
+						}
+					]
+				}
+			],
+			"description": "## Продукты\nРаздел для работы с продуктами."
+		}
+	]
+}
